@@ -1,5 +1,11 @@
 from flask import Flask
+from .database import Database
 
-app = Flask(__name__)
 
-from app.views import user_views
+def create_app():
+    ap = Flask(__name__)
+    Database()
+    from app.views.user_views import user
+    ap.register_blueprint(user)
+
+    return ap

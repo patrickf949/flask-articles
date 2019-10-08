@@ -1,5 +1,6 @@
-from app import app
+from flask import Blueprint
+user = Blueprint('user', __name__)
 
-@app.route('/')
+@user.route('/')
 def welcome():
     return "Welcome to Karibu!"
