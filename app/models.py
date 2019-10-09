@@ -65,4 +65,36 @@ class Users:
 
     def verify_password(self, data, db_data):
         return check_password_hash(data, db_data)
-    
+
+    def login_user(self, data):
+        """ method to login in registered users"""
+        query = "SELECT * FROM users WHERE email='{}'".format(
+            data['email'])
+        dictcur.execute(query)
+        login = dictcur.fetchone()
+        return login
+
+class Article:
+
+    def create_article(self, data):
+        query = "INSERT INTO articles(title, content, created_by) \
+            VALUES('{}', '{}', '{}')".format(
+                data['title'],
+                data['content'],
+                data['created_by']
+                )
+        cursor.execute(query)
+        return data
+
+    def check_title(self, title):
+        """ check if a title already exists """
+        query = "SELECT * FROM articles WHERE title='{}'".format(title)
+        dictcur.execute(query)
+        data = dictcur.fetchone()
+        return data
+
+    def get_all_articles(self):
+        query = "SELECT * FROM articles"
+        dictcur.execute(query)
+        articles = dictcur.fetchall()
+        return articles
